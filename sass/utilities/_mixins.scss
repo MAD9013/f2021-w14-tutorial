@@ -1,0 +1,139 @@
+@mixin hov {
+  &:hover,
+  &:focus {
+    @content;
+  }
+}
+
+@mixin small {
+
+  @media only screen and (min-width: 25em) {
+    @content;
+  }
+
+}
+
+@mixin medium {
+
+  @media only screen and (min-width: 38em) {
+    @content;
+  }
+
+}
+
+@mixin large {
+
+  @media only screen and (min-width: 60em) {
+    @content;
+  }
+
+}
+
+@mixin grid($xs: 1, $s: 2, $m: 3, $l: 4, $gap: 0) {
+  display: grid;
+  grid-template-columns: repeat($xs, 1fr);
+
+  @if ($gap != 0) {
+    gap: #{$gap}rem;
+  }
+
+  @include small {
+    grid-template-columns: repeat($s, 1fr);
+  }
+
+  @include medium {
+    grid-template-columns: repeat($m, 1fr);
+  }
+
+  @include large {
+    grid-template-columns: repeat($l, 1fr);
+  }
+
+}
+
+$font-scale-s: 1.125;
+$font-scale-m: 1.2;
+$font-scale-l: 1.25;
+
+@mixin heading1 {
+  font-size: fontScale($font-scale-s, 5);
+  @include medium {
+    font-size: fontScale($font-scale-m, 5);
+  }
+  @include large {
+    font-size: fontScale($font-scale-l, 5);
+  }
+}
+
+@mixin heading2 {
+  font-size: fontScale($font-scale-s, 4);
+  @include medium {
+    font-size: fontScale($font-scale-m, 4);
+  }
+  @include large {
+    font-size: fontScale($font-scale-l, 4);
+  }
+}
+
+@mixin heading3 {
+  font-size: fontScale($font-scale-s, 3);
+  @include medium {
+    font-size: fontScale($font-scale-m, 3);
+  }
+  @include large {
+    font-size: fontScale($font-scale-l, 3);
+  }
+}
+
+@mixin heading4 {
+  font-size: fontScale($font-scale-s, 2);
+  @include medium {
+    font-size: fontScale($font-scale-m, 2);
+  }
+  @include large {
+    font-size: fontScale($font-scale-l, 2);
+  }
+}
+
+@mixin heading5 {
+  font-size: fontScale($font-scale-s, 1);
+  @include medium {
+    font-size: fontScale($font-scale-m, 1);
+  }
+  @include large {
+    font-size: fontScale($font-scale-l, 1);
+  }
+}
+
+@mixin bgImage($size: cover, $position: center) {
+  background-size: $size;
+  background-position: $position;
+  background-repeat: no-repeat;
+}
+
+@mixin embed($ratio: '1x1', $fit: cover) {
+  position: relative;
+  width: 100%;
+  @if ($ratio == '1x1') {
+    padding-top: 100%;
+  } @else if ($ratio == '16by9') {
+    padding-top: 56.25%;
+  } @else if ($ratio == '4by3') {
+    padding-top: 75%;
+  } @else if ($ratio == '2by1') {
+    padding-top: 50%;
+  } @else {
+    padding-top: $ratio;
+  }
+  img,
+  svg,
+  iframe {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: $fit;
+  }
+}
